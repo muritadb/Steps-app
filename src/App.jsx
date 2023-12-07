@@ -16,13 +16,15 @@ const steps = [
   },
 ]
 
+const [firstRender] = steps
 const App = () => {
-  // const [message, setMessage] = useState(steps[0])
+  const [message, setMessage] = useState(firstRender)
   const [isOpen, setIsOpen] = useState(true)
+  // console.log(message, firstRender)
 
   const handleClickToggle = () => setIsOpen((i) => !i)
-  const handleClickPrevious = (e) => console.log(e.target.textContent)
-  const handleClickNext = () => {}
+  const handleClickPrevious = () => setMessage((s) => s)
+  const handleClickNext = () => setMessage()
 
   return (
     <div>
@@ -38,10 +40,10 @@ const App = () => {
             <div>2</div>
             <div>3</div>
           </div>
-          <p className="message">Entender o problema do cliente</p>
+          <p className="message">{message.description}</p>
           <div className="buttons">
             <button onClick={handleClickPrevious}>Anterior</button>
-            <button onClick={handleClickNext}>Proximo</button>
+            <button onClick={() => handleClickNext}>Proximo</button>
           </div>
         </div>
       )}
