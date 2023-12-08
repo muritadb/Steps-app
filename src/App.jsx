@@ -16,15 +16,31 @@ const steps = [
   },
 ]
 
-const [firstRender] = steps
 const App = () => {
-  const [message, setMessage] = useState(firstRender)
+  const [message, setMessage] = useState(0)
   const [isOpen, setIsOpen] = useState(true)
-  // console.log(message, firstRender)
+  console.log(message)
 
   const handleClickToggle = () => setIsOpen((i) => !i)
-  const handleClickPrevious = () => setMessage((s) => s)
-  const handleClickNext = () => setMessage()
+  const handleClickPrevious = () => {
+    if(message < 0){
+      return
+    }
+
+    if(message > 0) {
+      setMessage(message - 1)
+    }
+    
+  }
+  const handleClickNext = () => {
+    if(message === steps.at(-1)){
+      return
+    }
+    
+    if(message < steps.length - 1 ) {
+      setMessage(message + 1)
+    }
+  }
 
   return (
     <div>
@@ -36,14 +52,14 @@ const App = () => {
       {isOpen && (
         <div className="steps">
           <div className="numbers">
-            <div className="active">1</div>
-            <div>2</div>
-            <div>3</div>
+            <div className={`${message === 0 ? 'active' : '' }`}>1</div>
+            <div className={`${message === 1 ? 'active' : '' }`}>2</div>
+            <div className={`${message === 2 ? 'active' : '' }`}>3</div>
           </div>
-          <p className="message">{message.description}</p>
+          <p className="message">{steps[message].description}</p>
           <div className="buttons">
             <button onClick={handleClickPrevious}>Anterior</button>
-            <button onClick={() => handleClickNext}>Proximo</button>
+            <button onClick={handleClickNext}>Proximo</button>
           </div>
         </div>
       )}
