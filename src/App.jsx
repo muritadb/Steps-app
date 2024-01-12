@@ -22,16 +22,18 @@ const App = () => {
   console.log(message)
 
   const handleClickToggle = () => setShouldBeOpen((i) => !i)
-  const handleClickPrevious = () => {
-    if (message < 0) {
-      return
-    }
+  const handleClickPrevious = () => setMessage(s => (s === 0 ? s : s - 1))
+  // {
+  //   if (message < 0) {
+  //     return
+  //   }
 
-    if (message > 0) {
-      setMessage(m => m - 1)
-    }
+  //   if (message > 0) {
+  //     setMessage(m => m - 1)
+  //   }
 
-  }
+  // }
+
   const handleClickNext = () => setMessage(s => (s === steps.length - 1 ? s : s + 1))
 
   return (
