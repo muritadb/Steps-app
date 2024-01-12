@@ -24,6 +24,26 @@ const Toggle = ({ shouldBeOpen, onClickToggle }) => (
   </div>
 )
 
+const Steps = ({ shouldBeOpen, message, onClickNext, onClickPrevious }) =>
+  shouldBeOpen && (
+    <div className="steps">
+      <ul className="numbers">
+        {steps.map((item, i) => (
+          <li key={item.id} className={i + 1 === message ? 'active' : ''}>
+            {i + 1}
+          </li>
+        ))}
+      </ul>
+      <p className="message">
+        Passo {message}: {steps[message - 1].description}
+      </p>
+      <div className="buttons">
+        <button onClick={onClickPrevious}>Anterior</button>
+        <button onClick={onClickNext}>Proximo</button>
+      </div>
+    </div>
+  )
+
 const App = () => {
   const [message, setMessage] = useState(1)
   const [shouldBeOpen, setShouldBeOpen] = useState(true)
@@ -40,24 +60,12 @@ const App = () => {
         onClickToggle={handleClickToggle}
       />
 
-      {shouldBeOpen && (
-        <div className="steps">
-          <ul className="numbers">
-            {steps.map((item, i) => (
-              <li key={item.id} className={i + 1 === message ? 'active' : ''}>
-                {i + 1}
-              </li>
-            ))}
-          </ul>
-          <p className="message">
-            Passo {message}: {steps[message - 1].description}
-          </p>
-          <div className="buttons">
-            <button onClick={handleClickPrevious}>Anterior</button>
-            <button onClick={handleClickNext}>Proximo</button>
-          </div>
-        </div>
-      )}
+      <Steps
+        shouldBeOpen={shouldBeOpen}
+        message={message}
+        onClickNext={handleClickNext}
+        onClickPrevious={handleClickPrevious}
+      />
     </div>
   )
 }
