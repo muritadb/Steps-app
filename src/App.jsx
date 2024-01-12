@@ -18,27 +18,27 @@ const steps = [
 
 const App = () => {
   const [message, setMessage] = useState(0)
-  const [isOpen, setIsOpen] = useState(true)
+  const [shouldBeOpen, setShouldBeOpen] = useState(true)
   console.log(message)
 
-  const handleClickToggle = () => setIsOpen((i) => !i)
+  const handleClickToggle = () => setShouldBeOpen((i) => !i)
   const handleClickPrevious = () => {
-    if(message < 0){
+    if (message < 0) {
       return
     }
 
-    if(message > 0) {
-      setMessage(message - 1)
+    if (message > 0) {
+      setMessage(m => m - 1)
     }
-    
+
   }
   const handleClickNext = () => {
-    if(message === steps.at(-1)){
+    if (message === steps.at(-1)) {
       return
     }
-    
-    if(message < steps.length - 1 ) {
-      setMessage(message + 1)
+
+    if (message < steps.length - 1) {
+      setMessage(m => m + 1)
     }
   }
 
@@ -46,17 +46,21 @@ const App = () => {
     <div>
       <div className="container-close">
         <button onClick={handleClickToggle} className="close">
-          {isOpen ? "Fechar" : "Abrir"}
+          {shouldBeOpen ? "Fechar" : "Abrir"}
         </button>
       </div>
-      {isOpen && (
+      {shouldBeOpen && (
         <div className="steps">
-          <div className="numbers">
-            <div className={`${message === 0 ? 'active' : '' }`}>1</div>
-            <div className={`${message === 1 ? 'active' : '' }`}>2</div>
-            <div className={`${message === 2 ? 'active' : '' }`}>3</div>
-          </div>
-          <p className="message">{steps[message].description}</p>
+          <ul className="numbers">
+            {steps.map((item, i) => (
+              <li key={item.id} className={i === message ? 'active' : ''}>
+                {i + 1}
+              </li>
+            ))}
+          </ul>
+          <p className="message">
+            Passo {message + 1}: {steps[message].description}
+          </p>
           <div className="buttons">
             <button onClick={handleClickPrevious}>Anterior</button>
             <button onClick={handleClickNext}>Proximo</button>

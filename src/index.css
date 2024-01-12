@@ -22,7 +22,7 @@ body {
   justify-content: space-between;
 }
 
-.numbers > div {
+.numbers>li {
   height: 40px;
   aspect-ratio: 1;
   background-color: #454545;
