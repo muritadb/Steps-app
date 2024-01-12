@@ -16,44 +16,41 @@ const steps = [
   },
 ]
 
+const Toggle = ({ shouldBeOpen, onClickToggle }) => (
+  <div className="container-close">
+    <button onClick={onClickToggle} className="close">
+      {shouldBeOpen ? "Fechar" : "Abrir"}
+    </button>
+  </div>
+)
+
 const App = () => {
-  const [message, setMessage] = useState(0)
+  const [message, setMessage] = useState(1)
   const [shouldBeOpen, setShouldBeOpen] = useState(true)
-  console.log(message)
+
 
   const handleClickToggle = () => setShouldBeOpen((i) => !i)
-  const handleClickPrevious = () => setMessage(s => (s === 0 ? s : s - 1))
-  // {
-  //   if (message < 0) {
-  //     return
-  //   }
-
-  //   if (message > 0) {
-  //     setMessage(m => m - 1)
-  //   }
-
-  // }
-
-  const handleClickNext = () => setMessage(s => (s === steps.length - 1 ? s : s + 1))
+  const handleClickPrevious = () => setMessage(s => (s - 1 === 0 ? s : s - 1))
+  const handleClickNext = () => setMessage(s => (s === steps.length ? s : s + 1))
 
   return (
     <div>
-      <div className="container-close">
-        <button onClick={handleClickToggle} className="close">
-          {shouldBeOpen ? "Fechar" : "Abrir"}
-        </button>
-      </div>
+      <Toggle
+        shouldBeOpen={shouldBeOpen}
+        onClickToggle={handleClickToggle}
+      />
+
       {shouldBeOpen && (
         <div className="steps">
           <ul className="numbers">
             {steps.map((item, i) => (
-              <li key={item.id} className={i === message ? 'active' : ''}>
+              <li key={item.id} className={i + 1 === message ? 'active' : ''}>
                 {i + 1}
               </li>
             ))}
           </ul>
           <p className="message">
-            Passo {message + 1}: {steps[message].description}
+            Passo {message}: {steps[message - 1].description}
           </p>
           <div className="buttons">
             <button onClick={handleClickPrevious}>Anterior</button>
