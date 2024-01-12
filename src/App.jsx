@@ -32,15 +32,7 @@ const App = () => {
     }
 
   }
-  const handleClickNext = () => {
-    if (message === steps.at(-1)) {
-      return
-    }
-
-    if (message < steps.length - 1) {
-      setMessage(m => m + 1)
-    }
-  }
+  const handleClickNext = () => setMessage(s => (s === steps.length - 1 ? s : s + 1))
 
   return (
     <div>
