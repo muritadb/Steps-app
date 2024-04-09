@@ -9,10 +9,7 @@ const App = () => {
 
   return (
     <div>
-      <Toggle
-        shouldBeOpen={shouldBeOpen}
-        onClickToggle={handleClickToggle}
-      />
+      <Toggle shouldBeOpen={shouldBeOpen} onClickToggle={handleClickToggle} />
       
       {shouldBeOpen && <Steps />}
     </div>
